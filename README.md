@@ -1,20 +1,23 @@
 
-# TencentCloudCustomer
+# TencentCloudAIDeskCustomer
 
-[![CI Status](https://img.shields.io/travis/24520036/TencentCloudCustomer.svg?style=flat)](https://travis-ci.org/24520036/TencentCloudCustomer)
-[![Version](https://img.shields.io/cocoapods/v/TencentCloudCustomer.svg?style=flat)](https://cocoapods.org/pods/TencentCloudCustomer)
-[![License](https://img.shields.io/cocoapods/l/TencentCloudCustomer.svg?style=flat)](https://cocoapods.org/pods/TencentCloudCustomer)
-[![Platform](https://img.shields.io/cocoapods/p/TencentCloudCustomer.svg?style=flat)](https://cocoapods.org/pods/TencentCloudCustomer)
+[![CI Status](https://img.shields.io/travis/24520036/TencentCloudAIDeskCustomer.svg?style=flat)](https://travis-ci.org/24520036/TencentCloudAIDeskCustomer)
+[![Version](https://img.shields.io/cocoapods/v/TencentCloudAIDeskCustomer.svg?style=flat)](https://cocoapods.org/pods/TencentCloudAIDeskCustomer)
+[![License](https://img.shields.io/cocoapods/l/TencentCloudAIDeskCustomer.svg?style=flat)](https://cocoapods.org/pods/TencentCloudAIDeskCustomer)
+[![Platform](https://img.shields.io/cocoapods/p/TencentCloudAIDeskCustomer.svg?style=flat)](https://cocoapods.org/pods/TencentCloudAIDeskCustomer)
 
 
-The **TencentCloudCustomer** framework provides an easy-to-use interface for integrating customer service functionality into your iOS app. Follow the steps below to integrate and use the framework.
+**Tencent Cloud Desk Customer UIKit** is a UIKit Framework for integrating AI-powered customer service chat on the customer side of Tencent Cloud Desk, providing efficient and seamless communication with both AI and human agents.
+
+
+Follow the steps below to integrate and use the framework.
 
 ### Step 1: Add to Your Project
 
-To integrate **TencentCloudCustomer** into your project, add the following line to your `Podfile`:
+To integrate **TencentCloudAIDeskCustomer** into your project, add the following line to your `Podfile`:
 
 ```ruby
-pod 'TencentCloudCustomer'
+pod 'TencentCloudAIDeskCustomer'
 ```
 
 Then, run the following command to install the pod:
@@ -77,9 +80,11 @@ Here’s an example of how to add a button to open the customer service chat:
 
 ### Summary
 
-- **Add TencentCloudCustomer to your project** via CocoaPods.
+- **Add TencentCloudAIDeskCustomer to your project** via CocoaPods.
 - **Log in** with your `userID` and `UserSig`, then set the `CUSTOMER_SERVICE_USER_ID`.
 - **Open the customer service page** from any view controller using `pushToCustomerServiceViewControllerFromController:`.
 
-For more information and advanced configurations, please refer to our official documentation.
 
+### Learn More
+
+For comprehensive documentation, visit the [**Tencent Cloud Desk Documentation**](https://www.tencentcloud.com/document/product/1047/63268).

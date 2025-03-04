@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'TencentCloudAIDeskCustomer'
-  s.version          = '1.0.0'
+  s.version          = '1.0.1'
   s.summary          = 'AI-driven customer service UIKit for Tencent Cloud Desk (customer-side).'
 
 # This description is used to generate tags and improve search results.
