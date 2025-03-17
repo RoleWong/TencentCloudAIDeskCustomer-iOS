@@ -23,6 +23,8 @@
 
 - (void)pushToCustomerServiceViewControllerFromController:(UIViewController *)controller;
 
+- (void)presentCustomerServiceViewControllerFromController:(UIViewController *)controller;
+
 - (void)applyTheme: (NSString *)themeID;
 
 - (void)setQuickMessages:(NSArray<TUICustomerServicePluginMenuCellData *> *)menuItems;
