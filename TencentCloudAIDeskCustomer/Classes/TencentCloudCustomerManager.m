@@ -75,14 +75,6 @@
 
 - (void)pushToCustomerServiceViewControllerFromController:(UIViewController *)controller {
     [controller.navigationController pushViewController:[self getCustomerServiceViewController] animated:YES];
-
-    NSString *language = [self getPreferredLanguage];
-    NSData *data = [TDeskTool dictionary2JsonData:@{
-        @"src": BussinessID_Src_CustomerService_Request,
-        @"customerServicePlugin": @0,
-        @"triggeredContent": @{@"language": language}
-    }];
-    [TUICustomerServicePluginDataProvider sendCustomMessageWithoutUpdateUI:data];
 }
 
 - (void)presentCustomerServiceViewControllerFromController:(UIViewController *)controller {
@@ -90,40 +82,7 @@
     navController.modalPresentationStyle = UIModalPresentationFullScreen;
     
     [controller presentViewController:navController animated:YES completion:nil];
-
-    NSString *language = [self getPreferredLanguage];
-    NSData *data = [TDeskTool dictionary2JsonData:@{
-        @"src": BussinessID_Src_CustomerService_Request,
-        @"customerServicePlugin": @0,
-        @"triggeredContent": @{@"language": language}
-    }];
-
-    [TUICustomerServicePluginDataProvider sendCustomMessageWithoutUpdateUI:data];
 }
-
-- (NSString *)getPreferredLanguage {
-    NSString *appLanguage = [NSLocale preferredLanguages].firstObject;
-    
-    NSDictionary *languageMap = @{
-        @"zh-Hans": @"zh",
-        @"zh-Hant": @"zh-TW",
-        @"zh-TW": @"zh-TW",
-        @"en": @"en",
-        @"id": @"id",
-        @"vi": @"vi",
-        @"ja": @"ja",
-        @"fil": @"fil"
-    };
-    
-    for (NSString *key in languageMap.allKeys) {
-        if ([appLanguage hasPrefix:key]) {
-            return languageMap[key];
-        }
-    }
-    
-    return @"en";
-}
-
 
 - (void) applyTheme: (NSString *)themeID {
     NSBundle *customerBundle = [NSBundle bundleForClass:[self class]];
