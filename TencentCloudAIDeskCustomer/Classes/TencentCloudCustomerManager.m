@@ -45,12 +45,11 @@
         completion(nil);
         [loginSpan end];
     } fail:^(int code, NSString *msg) {
-        NSLog(@"登录失败, reason:%@", msg);
-        // 登录失败，创建一个 NSError 对象并传递给 completion
-        NSDictionary *userInfo = @{NSLocalizedDescriptionKey: msg};
-        NSError *error = [NSError errorWithDomain:@"com.tencent.qcloud.customeruikit" code:code userInfo:userInfo];
-        completion(error);
         [loginSpan end];
+        NSError *error = [NSError errorWithDomain:@"com.tencent.qcloud.customeruikit"
+                                                 code:code
+                                             userInfo:msg ? @{NSLocalizedDescriptionKey: msg} : nil];
+        completion(error);
     }];
 }
 
