@@ -25,7 +25,8 @@
 }
 
 - (NSArray<TUICustomerServicePluginMenuCellData *> *)pluginConfig:(TUICustomerServicePluginConfig *)config shouldUpdateOldMenuItems:(NSArray *)oldItems {
-    NSMutableArray *combinedItems = [NSMutableArray arrayWithArray:[self defaultMenuItems]];
+    NSMutableArray *combinedItems = [NSMutableArray arrayWithArray:oldItems];
+    [combinedItems addObjectsFromArray:self.defaultMenuItems];
     [combinedItems addObjectsFromArray:self.customMenuItems];
     return combinedItems;
 }
@@ -34,15 +35,6 @@
 - (NSArray *)defaultMenuItems {
     NSMutableArray *dataSource = [NSMutableArray new];
     
-    TUICustomerServicePluginMenuCellData *toHuman = [TUICustomerServicePluginMenuCellData new];
-    NSString *toHumanMsg = TDeskIMCommonLocalizableString(TUICustomerHumanService);
-    toHuman.title = toHumanMsg;
-    toHuman.icon = TUICustomerServicePluginBundleThemeImage(@"to_human_img", @"to_human");
-    toHuman.onClick = ^{
-        [TUICustomerServicePluginDataProvider sendTextMessage:toHumanMsg];
-    };
-    
-    [dataSource addObject:toHuman];
     return [dataSource copy];
 }
 
