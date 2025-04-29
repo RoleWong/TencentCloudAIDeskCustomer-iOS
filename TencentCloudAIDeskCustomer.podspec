@@ -36,7 +36,7 @@ Pod::Spec.new do |s|
   s.dependency 'TDeskCore', '~> 2.9.01'
   s.dependency 'TDeskCommon', '~> 2.9.01'
   s.dependency 'TDeskChat', '~> 2.9.01'
-  s.dependency 'TDeskCustomerServicePlugin', '~> 2.9.01'
+  s.dependency 'TDeskCustomerServicePlugin', '~> 2.9.011'
   
   s.frameworks = 'UIKit', 'Foundation'
   s.source_files = ['TencentCloudAIDeskCustomer/Classes/**/*', 'OpenTelemetry/Classes/**/*']
