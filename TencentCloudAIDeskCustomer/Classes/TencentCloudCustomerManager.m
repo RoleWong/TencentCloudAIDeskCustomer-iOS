@@ -101,6 +101,14 @@
     [TUICustomerServicePluginConfig sharedInstance].delegate = [TUICustomerServicePluginDelegate sharedInstance];
 }
 
+- (void)callExperimentalAPI:(NSString *)api param:(NSObject *)param {
+    [[V2TIMManager sharedInstance] callExperimentalAPI:api param:param succ:^(NSObject *result) {
+        NSLog(@"setTestEnvironment succ");
+    } fail:^(int code, NSString *desc) {
+        NSLog(@"setTestEnvironment fail");
+    }];
+}
+
 - (void) initUIKit{
     [self applyTheme:@"customer_light"];
     [TDeskMessageCellLayout incommingMessageLayout].avatarSize = CGSizeMake(0, 0);

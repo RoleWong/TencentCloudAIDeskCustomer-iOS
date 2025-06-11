@@ -28,6 +28,8 @@
 - (void)applyTheme: (NSString *)themeID;
 
 - (void)setQuickMessages:(NSArray<TUICustomerServicePluginMenuCellData *> *)menuItems;
+
+- (void)callExperimentalAPI:(NSString *)api param:(NSObject *)param;
  
 @end
 
