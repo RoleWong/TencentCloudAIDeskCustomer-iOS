@@ -16,6 +16,8 @@
 
 FOUNDATION_EXPORT NSString *const TCCCTelemetryDomain;
 
+@property (nonatomic, strong) NSArray<OTAttribute *> *baseAttributeList;
+
 @property (nonatomic, strong) OTLoggingSinkProvider *logProvider;
 
 @property (nonatomic, strong) OTTracerProvider *tracerProvider;
@@ -28,13 +30,9 @@ FOUNDATION_EXPORT NSString *const TCCCTelemetryDomain;
 
 + (instancetype) sharedLoggerManager;
 
-- (void)startTracing;
-
-- (void)logEvent:(NSString *)eventName eventBody:(OTLoggingAnyValue *)eventBody attributes:(NSArray<OTAttribute *> *)attributes;
-
--(OTSpan *)startSpan:(NSString *)eventName attributes:(NSDictionary *)attributes;
-
 - (OTSpan *)reportLogin:(int)sdkAppId userID:(NSString *)userID userSig:(NSString *)userSig;
+
+- (void)logInfo:(NSString *)line;
 
 @end
 

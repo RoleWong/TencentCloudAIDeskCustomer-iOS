@@ -78,51 +78,29 @@ NSString *const TCCCTelemetryDomain = @"https://tpstelemetry.tencent.com";
 
 -(OTSpan *)startSpan:(NSString *)eventName attributes:(NSDictionary *)attributes  {
     OTSpan *span = [self.tracer spanWithName:eventName parent:self.parentSpan];
-    
+
     [span addEventWithName:eventName attributes:attributes];
-    
     [span startSpan];
     return span;
 }
 
-- (void)logEvent:(NSString *)eventName eventBody:(OTLoggingAnyValue *)eventBody attributes:(NSArray<OTAttribute *> *)attributes {
+- (void)logEvent:(NSString *)eventName {
     OTLoggingRecord *record = [[OTLoggingRecord alloc] init];
     record.severity = OTLoggingRecordSeverityTrace;
     record.name = eventName;
-    record.body = eventBody;
+    record.body = [[OTLoggingAnyValue alloc] initWithString:eventName];
+    NSArray<OTAttribute *> *attributes = self.baseAttributeList;
     record.attributes = attributes;
     [self.logSink offer:record];
 }
 
 - (OTSpan *)reportLogin:(int)sdkAppId userID:(NSString *)userID userSig:(NSString *)userSig {
+    
+    [self initWithSdkAppId:sdkAppId userID:userID userSig:userSig];
+
     NSString *logMessage = [NSString stringWithFormat:@"Tencent Cloud Customer loginWithSdkAppID: %d, userID: %@, and userSig: %@", sdkAppId, userID, userSig];
     
-    OTAttribute *environmentAttribute = [OTAttribute
-            attributeWithKey:@"client.environment"
-                                      stringValue:@"Native"];
-    OTAttribute *moduleAttribute = [OTAttribute
-            attributeWithKey:@"client.module"
-                                      stringValue:@"CustomerClient"];
-    OTAttribute *platformAttribute = [OTAttribute
-            attributeWithKey:@"client.platform"
-                                      stringValue:@"iOS"];
-    OTAttribute *sdkAppIdAttribute = [OTAttribute
-            attributeWithKey:@"client.sdkAppId"
-                                      stringValue:[NSString stringWithFormat:@"%d",sdkAppId]];
-    OTAttribute *userIDAttribute = [OTAttribute
-            attributeWithKey:@"client.userId"
-                                      stringValue:userID];
-    OTAttribute *userSigAttribute = [OTAttribute
-            attributeWithKey:@"client.userSig"
-                                      stringValue:userSig];
-    OTAttribute *languageAttribute = [OTAttribute
-            attributeWithKey:@"telemetry.sdk.language"
-                                      stringValue:@"OC"];
-    OTAttribute *versionAttribute = [OTAttribute
-            attributeWithKey:@"client.version"
-                                      stringValue:@"2.4.0"];
-    
-    [self logEvent:@"loginWithSdkAppID" eventBody:[[OTLoggingAnyValue alloc] initWithString:logMessage] attributes:@[environmentAttribute, moduleAttribute,platformAttribute, sdkAppIdAttribute, userIDAttribute, userSigAttribute, languageAttribute, versionAttribute]];
+    [self logEvent:logMessage];
     
     NSDictionary *spanAttributes = @{
         @"sdkAppId": @(sdkAppId),
@@ -132,6 +110,30 @@ NSString *const TCCCTelemetryDomain = @"https://tpstelemetry.tencent.com";
     
     OTSpan *loginSpan = [self startSpan:logMessage attributes:spanAttributes];
     return loginSpan;
+}
+
+- (void)logInfo:(NSString *)line {
+    [self logEvent:line];
+    
+    OTSpan *span = [self startSpan:line attributes:nil];
+    [span end];
+}
+
+
+- (instancetype)initWithSdkAppId:(int)sdkAppId userID:(NSString *)userID userSig:(NSString *)userSig {
+    self = [super init];
+    if (self) {
+        OTAttribute *environmentAttribute = [OTAttribute attributeWithKey:@"client.environment" stringValue:@"Native"];
+        OTAttribute *moduleAttribute = [OTAttribute attributeWithKey:@"client.module" stringValue:@"CustomerClient"];
+        OTAttribute *platformAttribute = [OTAttribute attributeWithKey:@"client.platform" stringValue:@"iOS"];
+        OTAttribute *sdkAppIdAttribute = [OTAttribute attributeWithKey:@"client.sdkAppId" stringValue:[NSString stringWithFormat:@"%d", sdkAppId]];
+        OTAttribute *userIDAttribute = [OTAttribute attributeWithKey:@"client.userId" stringValue:userID];
+        OTAttribute *userSigAttribute = [OTAttribute attributeWithKey:@"client.userSig" stringValue:userSig];
+        OTAttribute *languageAttribute = [OTAttribute attributeWithKey:@"telemetry.sdk.language" stringValue:@"OC"];
+        OTAttribute *versionAttribute = [OTAttribute attributeWithKey:@"client.version" stringValue:@"2.4.0"];
+        self.baseAttributeList = @[environmentAttribute, moduleAttribute, platformAttribute, sdkAppIdAttribute, userIDAttribute, userSigAttribute, languageAttribute, versionAttribute];
+    }
+    return self;
 }
 
 @end

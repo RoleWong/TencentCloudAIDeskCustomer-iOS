@@ -42,9 +42,11 @@
     
     [TDeskLogin login:sdkAppId userID:userID userSig:userSig succ:^{
         NSLog(@"登录成功");
+        [TencentCloudCustomerLoggerObjC.sharedLoggerManager logInfo:@"login success"];
         completion(nil);
         [loginSpan end];
     } fail:^(int code, NSString *msg) {
+        [TencentCloudCustomerLoggerObjC.sharedLoggerManager logInfo:[NSString stringWithFormat:@"login error:%@",msg]];
         [loginSpan end];
         NSError *error = [NSError errorWithDomain:@"com.tencent.qcloud.customeruikit"
                                                  code:code
@@ -55,11 +57,13 @@
 
 - (void)setCustomerServiceUserID:(NSString *)userID{
     TUICustomerServicePluginPrivateConfig *cusomterServiceConfig = [TUICustomerServicePluginPrivateConfig sharedInstance];
+    [TencentCloudCustomerLoggerObjC.sharedLoggerManager logInfo:[NSString stringWithFormat:@"setCustomerServiceUserID:%@",userID]];
     NSArray *customerServiceUserID = @[userID];
     cusomterServiceConfig.customerServiceAccounts = customerServiceUserID;
 }
 
 - (TDeskBaseChatViewController *) getCustomerServiceViewController{
+    [TencentCloudCustomerLoggerObjC.sharedLoggerManager logInfo:@"getCustomerServiceViewController"];
     TUICustomerServicePluginPrivateConfig *cusomterServiceConfig = [TUICustomerServicePluginPrivateConfig sharedInstance];
     TDeskChatConversationModel *conversationData = [[TDeskChatConversationModel alloc] init];
     conversationData.userID = cusomterServiceConfig.customerServiceAccounts.firstObject;
@@ -73,10 +77,12 @@
 }
 
 - (void)pushToCustomerServiceViewControllerFromController:(UIViewController *)controller {
+    [TencentCloudCustomerLoggerObjC.sharedLoggerManager logInfo:@"pushToCustomerServiceViewControllerFromController"];
     [controller.navigationController pushViewController:[self getCustomerServiceViewController] animated:YES];
 }
 
 - (void)presentCustomerServiceViewControllerFromController:(UIViewController *)controller {
+    [TencentCloudCustomerLoggerObjC.sharedLoggerManager logInfo:@"presentCustomerServiceViewControllerFromController"];
     UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:[self getCustomerServiceViewController]];
     navController.modalPresentationStyle = UIModalPresentationFullScreen;
     
@@ -97,11 +103,13 @@
 }
 
 - (void)setQuickMessages:(NSArray<TUICustomerServicePluginMenuCellData *> *)menuItems{
+    [TencentCloudCustomerLoggerObjC.sharedLoggerManager logInfo:[NSString stringWithFormat:@"setQuickMessages:%lu",menuItems.count]];
     [TUICustomerServicePluginDelegate sharedInstance].customMenuItems = menuItems;
     [TUICustomerServicePluginConfig sharedInstance].delegate = [TUICustomerServicePluginDelegate sharedInstance];
 }
 
 - (void)callExperimentalAPI:(NSString *)api param:(NSObject *)param {
+    [TencentCloudCustomerLoggerObjC.sharedLoggerManager logInfo:[NSString stringWithFormat:@"callExperimentalAPI:%@",api]];
     [[V2TIMManager sharedInstance] callExperimentalAPI:api param:param succ:^(NSObject *result) {
         NSLog(@"setTestEnvironment succ");
     } fail:^(int code, NSString *desc) {
