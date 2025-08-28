@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'TencentCloudAIDeskCustomer'
-  s.version          = '1.0.14'
+  s.version          = '1.0.15'
   s.summary          = 'AI-driven customer service UIKit for Tencent Cloud Desk (customer-side).'
 
 # This description is used to generate tags and improve search results.
@@ -33,10 +33,10 @@ Pod::Spec.new do |s|
   
 #  s.vendored_frameworks = 'OpenTelemetry.framework'
   
-  s.dependency 'TDeskCore', '~> 2.9.014'
-  s.dependency 'TDeskCommon', '~> 2.9.014'
-  s.dependency 'TDeskChat', '~> 2.9.014'
-  s.dependency 'TDeskCustomerServicePlugin', '~>2.9.014'
+  s.dependency 'TDeskCore', '~> 2.9.015'
+  s.dependency 'TDeskCommon', '~> 2.9.015'
+  s.dependency 'TDeskChat', '~> 2.9.015'
+  s.dependency 'TDeskCustomerServicePlugin', '~>2.9.015'
   
   s.frameworks = 'UIKit', 'Foundation'
   s.source_files = ['TencentCloudAIDeskCustomer/Classes/**/*', 'OpenTelemetry/Classes/**/*']
