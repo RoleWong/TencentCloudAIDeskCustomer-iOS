@@ -29,6 +29,12 @@
 
 - (void)setQuickMessages:(NSArray<TUICustomerServicePluginMenuCellData *> *)menuItems;
 
+- (void)setShowHumanService:(BOOL)show;
+
+- (void)setShowServiceRating:(BOOL)show;
+
+- (void)setShowEndHumanService:(BOOL)show;
+
 - (void)callExperimentalAPI:(NSString *)api param:(NSObject *)param;
  
 @end

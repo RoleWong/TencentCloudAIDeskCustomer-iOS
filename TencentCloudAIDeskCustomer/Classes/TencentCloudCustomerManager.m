@@ -108,6 +108,42 @@
     [TUICustomerServicePluginConfig sharedInstance].delegate = [TUICustomerServicePluginDelegate sharedInstance];
 }
 
+- (void)setShowHumanService:(BOOL)show {
+    [TencentCloudCustomerLoggerObjC.sharedLoggerManager logInfo:[NSString stringWithFormat:@"setShowHumanService:%@", show ? @"YES" : @"NO"]];
+    
+    TUICustomerServicePluginPrivateConfig *privateConfig = [TUICustomerServicePluginPrivateConfig sharedInstance];
+    privateConfig.enableShowHumanService = show;
+    
+    if (!show) {
+        [TUICustomerServicePluginConfig sharedInstance].showHumanServiceMenuItem = NO;
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"TUICustomerServiceMenuItemUpdatedNotification" object:nil];
+    }
+}
+
+- (void)setShowServiceRating:(BOOL)show {
+    [TencentCloudCustomerLoggerObjC.sharedLoggerManager logInfo:[NSString stringWithFormat:@"setShowServiceRating:%@", show ? @"YES" : @"NO"]];
+    
+    TUICustomerServicePluginPrivateConfig *privateConfig = [TUICustomerServicePluginPrivateConfig sharedInstance];
+    privateConfig.enableShowServiceRating = show;
+    
+    if (!show) {
+        [TUICustomerServicePluginConfig sharedInstance].showServiceRatingMenuItem = NO;
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"TUICustomerServiceMenuItemUpdatedNotification" object:nil];
+    }
+}
+
+- (void)setShowEndHumanService:(BOOL)show {
+    [TencentCloudCustomerLoggerObjC.sharedLoggerManager logInfo:[NSString stringWithFormat:@"setShowEndHumanService:%@", show ? @"YES" : @"NO"]];
+    
+    TUICustomerServicePluginPrivateConfig *privateConfig = [TUICustomerServicePluginPrivateConfig sharedInstance];
+    privateConfig.enableShowEndHumanService = show;
+    
+    if (!show) {
+        [TUICustomerServicePluginConfig sharedInstance].showEndHumanServiceMenuItem = NO;
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"TUICustomerServiceMenuItemUpdatedNotification" object:nil];
+    }
+}
+
 - (void)callExperimentalAPI:(NSString *)api param:(NSObject *)param {
     [TencentCloudCustomerLoggerObjC.sharedLoggerManager logInfo:[NSString stringWithFormat:@"callExperimentalAPI:%@",api]];
     [[V2TIMManager sharedInstance] callExperimentalAPI:api param:param succ:^(NSObject *result) {
