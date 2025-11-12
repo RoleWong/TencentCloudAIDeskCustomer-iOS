@@ -1,90 +1,22 @@
+重要通知 / Important Notice
 
-# TencentCloudAIDeskCustomer
+仓库迁移说明 / Repository Migration
 
-[![CI Status](https://img.shields.io/travis/24520036/TencentCloudAIDeskCustomer.svg?style=flat)](https://travis-ci.org/24520036/TencentCloudAIDeskCustomer)
-[![Version](https://img.shields.io/cocoapods/v/TencentCloudAIDeskCustomer.svg?style=flat)](https://cocoapods.org/pods/TencentCloudAIDeskCustomer)
-[![License](https://img.shields.io/cocoapods/l/TencentCloudAIDeskCustomer.svg?style=flat)](https://cocoapods.org/pods/TencentCloudAIDeskCustomer)
-[![Platform](https://img.shields.io/cocoapods/p/TencentCloudAIDeskCustomer.svg?style=flat)](https://cocoapods.org/pods/TencentCloudAIDeskCustomer)
+本 GitHub 仓库已停止更新，后续新版本的代码将开源在腾讯云 CNB（Cloud Native Build）Git 仓库上。
 
+This GitHub repository has been archived and will no longer receive updates. Future versions of the code will be open-sourced on Tencent Cloud Native Build (CNB) Git repository.
 
-**Tencent Cloud Desk Customer UIKit** is a UIKit Framework for integrating AI-powered customer service chat on the customer side of Tencent Cloud Desk, providing efficient and seamless communication with both AI and human agents.
+新仓库地址 / New Repository Location
 
+腾讯 CNB Git 仓库地址: https://cnb.cool/tencent/cloud/tccc/TencentCloudAIDeskCustomer-iOS
+Tencent CNB Git Repository URL: https://cnb.cool/tencent/cloud/tccc/TencentCloudAIDeskCustomer-iOS
 
-Follow the steps below to integrate and use the framework.
+访问说明 / Access Instructions
 
-### Step 1: Add to Your Project
+请访问上述链接获取最新版本的开源代码。腾讯 CNB Git 仓库的使用方式与 GitHub 基本一致，支持标准的 Git 操作流程。
 
-To integrate **TencentCloudAIDeskCustomer** into your project, add the following line to your `Podfile`:
+Please visit the above link to access the latest version of the open-source code. The Tencent CNB Git repository operates similarly to GitHub, supporting standard Git workflows.
 
-```ruby
-pod 'TencentCloudAIDeskCustomer'
-```
+注意： 本仓库仅作为历史版本存档，建议所有用户迁移至新仓库以获取最新功能和安全更新。
 
-Then, run the following command to install the pod:
-
-```bash
-pod install
-```
-
-### Step 2: Logging In and Setting Customer Service User ID
-
-Before using the customer service feature, you need to log in and set the customer service user ID. You can do this at any point before initiating a customer service chat.
-
-Add the following code at the appropriate point in your app’s lifecycle:
-
-```objc
-- (void)login:(NSString *)userID userSig:(NSString *)sig {
-    [[TencentCloudCustomerManager sharedManager] loginWithSdkAppID:public_SDKAPPID userID:userID userSig:sig completion:^(NSError *error) {
-        if (!error) {
-            // Set customer service user ID after login
-            [[TencentCloudCustomerManager sharedManager] setCustomerServiceUserID:CUSTOMER_SERVICE_USER_ID];
-        }
-    }];
-}
-```
-
-You can find more details about generating a `UserSig` in [this documentation](https://www.tencentcloud.com/document/product/1047/34385).
-
-### Step 3: Initiating the Customer Service Chat
-
-Once you have logged in and set the customer service user ID, you can easily open the customer service page from any view controller.
-
-Here’s an example of how to add a button to open the customer service chat:
-
-```objc
-@interface ViewController ()
-
-@end
-
-@implementation ViewController
-
-- (void)viewDidLoad {
-    [super viewDidLoad];
-    
-    // Create a button to start customer service chat
-    UIButton *button = [UIButton buttonWithType:UIButtonTypeSystem];
-    [button setTitle:@"Customer Service" forState:UIControlStateNormal];
-    [button addTarget:self action:@selector(chatButtonTapped) forControlEvents:UIControlEventTouchUpInside];
-    [button sizeToFit];
-    button.center = self.view.center;
-    [self.view addSubview:button];
-}
-
-// Action to initiate the customer service chat
-- (void)chatButtonTapped {
-    [[TencentCloudCustomerManager sharedManager] pushToCustomerServiceViewControllerFromController:self];
-}
-
-@end
-```
-
-### Summary
-
-- **Add TencentCloudAIDeskCustomer to your project** via CocoaPods.
-- **Log in** with your `userID` and `UserSig`, then set the `CUSTOMER_SERVICE_USER_ID`.
-- **Open the customer service page** from any view controller using `pushToCustomerServiceViewControllerFromController:`.
-
-
-### Learn More
-
-For comprehensive documentation, visit the [**Tencent Cloud Desk Documentation**](https://www.tencentcloud.com/document/product/1047/63268).
+Note: This repository is maintained for historical reference only. All users are advised to migrate to the new repository to access the latest features and security updates.
